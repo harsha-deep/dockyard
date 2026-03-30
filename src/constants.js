@@ -11,4 +11,4 @@ export const MENU = {
 
 export const REFRESH_INTERVAL = 3000;
 export const GITHUB_URL = "https://github.com/harsha-deep/dockyard";
-export const APP_VERSION = "0.2.0";
+export const APP_VERSION = "0.3.0";
