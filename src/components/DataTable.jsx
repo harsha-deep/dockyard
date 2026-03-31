@@ -4,12 +4,30 @@ import {
   flexRender,
 } from "@tanstack/react-table";
 
-function DataTable({ data, columns, emptyMessage = "No data found" }) {
+function AppleSpinner() {
+  return (
+    <div className="apple-spinner">
+      {Array.from({ length: 12 }, (_, i) => (
+        <div key={i} className="spoke bg-gray-500 dark:bg-[#9E9E9E]" />
+      ))}
+    </div>
+  );
+}
+
+function DataTable({ data, columns, loading, emptyMessage = "No data found" }) {
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
+  if (loading) {
+    return (
+      <div className="bg-white dark:bg-[#252526] rounded-xl shadow-sm flex items-center justify-center py-16">
+        <AppleSpinner />
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white dark:bg-[#252526] rounded-xl shadow-sm overflow-x-auto">

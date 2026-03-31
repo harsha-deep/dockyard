@@ -7,6 +7,7 @@ const BUILTIN_NETWORKS = new Set(["bridge", "host", "none"]);
 
 function NetworksView() {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [loadingRows, setLoadingRows] = useState(new Set());
 
   const fetchNetworks = useCallback(async () => {
@@ -16,6 +17,8 @@ function NetworksView() {
     } catch (err) {
       console.error(err);
       toast.error("Failed to fetch networks");
+    } finally {
+      setLoading(false);
     }
   }, []);
 
@@ -75,7 +78,7 @@ function NetworksView() {
 
   return (
     <div className="p-5">
-      <DataTable data={data} columns={columns} emptyMessage="No networks found" />
+      <DataTable data={data} columns={columns} loading={loading} emptyMessage="No networks found" />
     </div>
   );
 }

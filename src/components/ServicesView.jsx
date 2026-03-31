@@ -6,6 +6,7 @@ import DataTable from "./DataTable";
 
 function ServicesView() {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [servicePath, setServicePath] = useState(null);
   const [loadingRows, setLoadingRows] = useState(new Set());
 
@@ -14,12 +15,15 @@ function ServicesView() {
       setData([]);
       return;
     }
+    setLoading(true);
     try {
       const result = await invoke("docker_services", { path: servicePath });
       setData(result);
     } catch (err) {
       console.error(err);
       toast.error("Failed to fetch services");
+    } finally {
+      setLoading(false);
     }
   }, [servicePath]);
 
@@ -149,7 +153,7 @@ function ServicesView() {
         </span>
       </div>
 
-      <DataTable data={data} columns={columns} emptyMessage="No services found" />
+      <DataTable data={data} columns={columns} loading={loading} emptyMessage="No services found" />
     </div>
   );
 }

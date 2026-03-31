@@ -81,7 +81,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-[#1E1E1E] text-gray-900 dark:text-[#D4D4D4] transition-colors">
-      <Toaster richColors position="bottom-right" />
+      <Toaster richColors closeButton position="bottom-right" />
 
       <div className="px-5 pt-5 pb-2">
         <h2 className="text-xl font-semibold capitalize">{view}</h2>

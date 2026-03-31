@@ -5,6 +5,7 @@ import DataTable from "./DataTable";
 
 function ContainersView() {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [loadingRows, setLoadingRows] = useState(new Set());
 
   const fetchContainers = useCallback(async () => {
@@ -14,6 +15,8 @@ function ContainersView() {
     } catch (err) {
       console.error(err);
       toast.error("Failed to fetch containers");
+    } finally {
+      setLoading(false);
     }
   }, []);
 
@@ -143,7 +146,7 @@ function ContainersView() {
 
   return (
     <div className="p-5">
-      <DataTable data={data} columns={columns} emptyMessage="No containers found" />
+      <DataTable data={data} columns={columns} loading={loading} emptyMessage="No containers found" />
     </div>
   );
 }

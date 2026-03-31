@@ -5,6 +5,7 @@ import DataTable from "./DataTable";
 
 function ImagesView() {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [loadingRows, setLoadingRows] = useState(new Set());
 
   const fetchImages = useCallback(async () => {
@@ -14,6 +15,8 @@ function ImagesView() {
     } catch (err) {
       console.error(err);
       toast.error("Failed to fetch images");
+    } finally {
+      setLoading(false);
     }
   }, []);
 
@@ -73,7 +76,7 @@ function ImagesView() {
 
   return (
     <div className="p-5">
-      <DataTable data={data} columns={columns} emptyMessage="No images found" />
+      <DataTable data={data} columns={columns} loading={loading} emptyMessage="No images found" />
     </div>
   );
 }

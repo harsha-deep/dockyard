@@ -5,6 +5,7 @@ import DataTable from "./DataTable";
 
 function VolumesView() {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [loadingRows, setLoadingRows] = useState(new Set());
 
   const fetchVolumes = useCallback(async () => {
@@ -14,6 +15,8 @@ function VolumesView() {
     } catch (err) {
       console.error(err);
       toast.error("Failed to fetch volumes");
+    } finally {
+      setLoading(false);
     }
   }, []);
 
@@ -69,7 +72,7 @@ function VolumesView() {
 
   return (
     <div className="p-5">
-      <DataTable data={data} columns={columns} emptyMessage="No volumes found" />
+      <DataTable data={data} columns={columns} loading={loading} emptyMessage="No volumes found" />
     </div>
   );
 }
